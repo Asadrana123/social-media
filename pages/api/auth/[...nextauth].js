@@ -11,7 +11,7 @@ export const authOptions = {
     // ...add more providers here_
   ],
   pages:{
-       signin:"/auth/signin"
+       signIn:"/auth/Signin"
   }
 }
 

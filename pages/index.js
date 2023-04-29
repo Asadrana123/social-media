@@ -4,7 +4,6 @@ import Head from 'next/head'
 import Sidebar from '@/components/Sidebar'
 import Feed from '@/components/Feed'
 import Widgets from '@/components/Widgets'
-
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home({newsResults,randomUsersResults}) {

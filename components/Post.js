@@ -1,6 +1,6 @@
 import { ChartBarIcon, ChatIcon, DotsHorizontalIcon, HeartIcon, ShareIcon, TrashIcon } from '@heroicons/react/solid'
 import React from 'react'
-
+import { useSession } from 'next-auth/react'
 function Post({post}) {
   return (
     <div className='flex p-3 cursor-pointer border-b border-gray-200'>
