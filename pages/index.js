@@ -4,9 +4,14 @@ import Head from 'next/head'
 import Sidebar from '@/components/Sidebar'
 import Feed from '@/components/Feed'
 import Widgets from '@/components/Widgets'
+import signin from './auth/Signin'
 const inter = Inter({ subsets: ['latin'] })
-
+import { useSession,signIn } from 'next-auth/react'
 export default function Home({newsResults,randomUsersResults}) {
+//   const {data:session}=useSession();
+//   if(!session){
+//      {signIn()}
+//  }
   return (
           <div>
             <Head>

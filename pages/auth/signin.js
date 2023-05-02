@@ -9,7 +9,8 @@ export default function signin({providers}) {
              />
              <div className='flex flex-col items-center'>
              {Object.values(providers).map((provider)=>(
-                      <div className='flex flex-col items-center'>
+                      <div className='flex flex-col items-center'
+                      >
                       <img src="https://help.twitter.com/content/dam/help-twitter/brand/logo.png" 
                       className='w-36 object-cover'
                       alt=""/>
