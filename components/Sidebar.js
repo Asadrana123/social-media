@@ -6,6 +6,7 @@ BookmarkIcon, ClipboardIcon, DotsCircleHorizontalIcon, DotsHorizontalIcon} from 
 import { useSession,signIn,signOut } from 'next-auth/react'
 export default function Sidebar() {
   const {data:session}=useSession();
+  console.log(session)
   return (
     <div className="hidden sm:flex flex-col p-2 xl:items-start fixed h-full xl:ml-24">
        <div className='hoverEffect p-0 hover:bg-blue-100 xl:px-1'>
@@ -48,7 +49,9 @@ export default function Sidebar() {
             </div>
             <DotsHorizontalIcon className="h-5 xl:ml-8 hidden xl:inline" />
           </div>
-        </>:<> <button onClick={()=>signIn()} className='bg-sky-500 rounded-lg py-2 text-white hover:bg-sky-600 px-8' >Sign in </button></>
+        </>:<> <button onClick={()=>signIn()} 
+        className='bg-sky-500 rounded-lg py-2 text-white hover:bg-sky-600 px-8' >
+          Sign in </button></>
         }
        
         {/* miniprofile */}
