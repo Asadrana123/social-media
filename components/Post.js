@@ -1,9 +1,39 @@
 import { ChartBarIcon, ChatIcon, DotsHorizontalIcon, HeartIcon, ShareIcon, TrashIcon } from '@heroicons/react/solid'
-import React from 'react'
-import { useSession } from 'next-auth/react'
-import  Moment  from 'moment/moment';
+import {HeartIcon as EmptyHeart} from '@heroicons/react/outline';
+import React, { useEffect, useState } from 'react'
 import moment from 'moment/moment';
+import { collection, deleteDoc, doc, onSnapshot, setDoc } from 'firebase/firestore';
+import { db } from '@/firebase';
+import { signIn, useSession } from 'next-auth/react';
 function Post({post}) {
+  const {data:session}=useSession();
+  const [likes,setLikes]=useState([]); 
+  const [hasLiked,sethasLiked]=useState(false);
+  useEffect(()=>{
+        const unsubscribe=onSnapshot(
+          collection(db,"posts",post.id,"likes"),
+          (snapshot)=>setLikes(snapshot.docs)
+        );      
+  },[db])
+  useEffect(()=>{
+       sethasLiked(likes.findIndex((like)=>like.id===session?.user.uid)!==-1)
+  },[likes])
+  async function likePost(){
+    if(session){
+      if(hasLiked){
+        await deleteDoc(doc(db,"posts",post.id,"likes",session?.user.uid))
+}
+else{ 
+await setDoc(doc(db,"posts",post.id,"likes",session?.user.uid),{
+      username:session.user.username,
+})
+    }
+    
+  }
+   else{
+      signIn();
+   }
+}
   return (
     <div className='flex p-3 cursor-pointer border-b border-gray-200'>
               {/* image */}
@@ -20,7 +50,7 @@ function Post({post}) {
                                <span className='text-sm sm:text-[15px] hover:underline'>
                                 </span>
                                 <span className='text-sm sm:text-[15px] hover:underline'>
-                                             {moment(post.data().timestamp?.toDate()).fromNow()}
+                                             {moment(post?.data().timestamp?.toDate()).fromNow()}
                                 </span>
                      </div>
                      {/* dot icon */}
@@ -34,7 +64,16 @@ function Post({post}) {
                 <div className='flex justify-between text-gray-500 p-2'>
                           <ChatIcon className='h-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-200 '/>
                           <TrashIcon className='h-9 hoverEffect p-2 hover:text-red-500 hover:bg-sky-200'/>
-                          <HeartIcon className='h-9 hoverEffect p-2 hover:text-red-500 hover:bg-sky-200'/>
+                          <div className='flex items-center'>
+                          {hasLiked?<><HeartIcon onClick={likePost} className='h-9 hoverEffect p-2 hover:text-red-500 hover:bg-sky-200'/>
+                          </>:<><EmptyHeart onClick={likePost} className='h-9 hoverEffect p-2 hover:text-red-500 hover:bg-sky-200'/>
+                          </>}
+                          {
+                            likes.length>0&&(
+                              <span className={`${hasLiked&& "text-red-600"}`}>{likes.length}</span>
+                            )
+                          }
+                          </div> 
                            <ShareIcon className='h-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-200'/>
                           <ChartBarIcon className='h-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-200'/>
                 </div>
