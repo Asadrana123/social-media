@@ -3,8 +3,9 @@ import {HeartIcon as EmptyHeart} from '@heroicons/react/outline';
 import React, { useEffect, useState } from 'react'
 import moment from 'moment/moment';
 import { collection, deleteDoc, doc, onSnapshot, setDoc } from 'firebase/firestore';
-import { db } from '@/firebase';
+import { db,storage } from '@/firebase';
 import { signIn, useSession } from 'next-auth/react';
+import { deleteObject, ref } from 'firebase/storage';
 function Post({post}) {
   const {data:session}=useSession();
   const [likes,setLikes]=useState([]); 
@@ -33,6 +34,12 @@ await setDoc(doc(db,"posts",post.id,"likes",session?.user.uid),{
    else{
       signIn();
    }
+}
+async function deletePost(){
+            if(window.confirm("Are you sure you want to delete this post")){
+                 deleteDoc(doc(db,"posts",post.id));
+                 deleteObject(ref(storage,`posts/${post.id}/image`));
+            }
 }
   return (
     <div className='flex p-3 cursor-pointer border-b border-gray-200'>
@@ -63,7 +70,9 @@ await setDoc(doc(db,"posts",post.id,"likes",session?.user.uid),{
                 {/* icons */}
                 <div className='flex justify-between text-gray-500 p-2'>
                           <ChatIcon className='h-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-200 '/>
-                          <TrashIcon className='h-9 hoverEffect p-2 hover:text-red-500 hover:bg-sky-200'/>
+                          {session?.user.uid===post?.data().id&&(
+                                <TrashIcon onClick={deletePost} className='h-9 hoverEffect p-2 hover:text-red-500 hover:bg-sky-200'/>
+                          )}
                           <div className='flex items-center'>
                           {hasLiked?<><HeartIcon onClick={likePost} className='h-9 hoverEffect p-2 hover:text-red-500 hover:bg-sky-200'/>
                           </>:<><EmptyHeart onClick={likePost} className='h-9 hoverEffect p-2 hover:text-red-500 hover:bg-sky-200'/>
