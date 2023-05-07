@@ -7,6 +7,7 @@ import Widgets from '@/components/Widgets'
 import signin from './auth/Signin'
 const inter = Inter({ subsets: ['latin'] })
 import { useSession,signIn } from 'next-auth/react'
+import ComponentModal from '@/components/ComponentModal'
 export default function Home({newsResults,randomUsersResults}) {
 //   const {data:session}=useSession();
 //   if(!session){
@@ -23,6 +24,7 @@ export default function Home({newsResults,randomUsersResults}) {
             <Sidebar/>
             <Feed/>
             <Widgets newsResults={newsResults.articles} randomUsersResults={randomUsersResults.results} />
+             <ComponentModal/>
             </main>
           </div>
   )
