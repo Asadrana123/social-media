@@ -6,13 +6,14 @@ import { collection, deleteDoc, doc, onSnapshot, setDoc } from 'firebase/firesto
 import { db,storage } from '@/firebase';
 import { signIn, useSession } from 'next-auth/react';
 import { deleteObject, ref } from 'firebase/storage';
-import { modalState } from '@/atom/modalAtom';
+import { modalState, postIdState } from '@/atom/modalAtom';
 import { useRecoilState } from 'recoil';
 function Post({post}) {
   const {data:session}=useSession();
   const [likes,setLikes]=useState([]); 
   const [hasLiked,sethasLiked]=useState(false);
   const [open,setOpen]=useRecoilState(modalState);
+  const [postId,setPostId]=useRecoilState(postIdState);
   useEffect(()=>{
         const unsubscribe=onSnapshot(
           collection(db,"posts",post.id,"likes"),
@@ -72,7 +73,18 @@ async function deletePost(){
                 {post.data().image&& <img className='rounded-2xl mr-2' src={post.data().image} alt="post image"/>} 
                 {/* icons */}
                 <div className='flex justify-between text-gray-500 p-2'>
-                          <ChatIcon onClick={()=>setOpen(!open)} className='h-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-200 '/>
+                          <ChatIcon onClick={
+                            ()=>{
+                              if(!session){
+                                signIn()
+                              }
+                            else{  
+                              setOpen(!open)
+                            setPostId(post.id)
+                            }
+                            }
+                          } 
+                          className='h-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-200 '/>
                           {session?.user.uid===post?.data().id&&(
                                 <TrashIcon onClick={deletePost} className='h-9 hoverEffect p-2 hover:text-red-500 hover:bg-sky-200'/>
                           )}

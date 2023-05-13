@@ -6,7 +6,6 @@ BookmarkIcon, ClipboardIcon, DotsCircleHorizontalIcon, DotsHorizontalIcon} from 
 import { useSession,signIn,signOut } from 'next-auth/react'
 export default function Sidebar() {
   const {data:session}=useSession();
-  console.log(session)
   return (
     <div className="hidden sm:flex flex-col p-2 xl:items-start fixed h-full xl:ml-24">
        <div className='hoverEffect p-0 hover:bg-blue-100 xl:px-1'>
@@ -38,7 +37,7 @@ export default function Sidebar() {
         </button></div>
         <div className="hoverEffect text-gray-700 flex items-center justify-center xl:justify-start">
             <img
-              src={session.user.image}          
+              src={session?.user.image}          
               alt="user-img"
               className="h-10 w-10 rounded-full xl:mr-2"
               onClick={signOut}
