@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
+import { serverTimestamp } from 'firebase/firestore';
 import  {modalState, postIdState} from "../atom/modalAtom"
-import { collection, deleteDoc, doc, onSnapshot, setDoc } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, onSnapshot, setDoc } from 'firebase/firestore';
 import Modal from 'react-modal';
 import moment from 'moment';
 import { db } from '@/firebase';
+import { useRouter } from 'next/router';
 import { XIcon } from '@heroicons/react/solid';
 import { useSession } from 'next-auth/react';
 import {PhotographIcon,EmojiHappyIcon} from '@heroicons/react/solid';
@@ -13,14 +15,27 @@ export default function ComponentModal() {
     const [postId]=useRecoilState(postIdState);
     const [post,setPost]=useState({});
     const {data:session}=useSession();
+    const router=useRouter();
     const [input,setinput]=useState("");
-    const [comment,sendComment]=useState("");
+    const [comments,sendcomment]=useState("");
+
     useEffect(()=>{
              onSnapshot(doc(db,"posts",postId),(snapshot)=>{
                 setPost(snapshot);
              })
     },[postId,db])
-    console.log(post);
+    async function sendComment(){
+        await addDoc(collection(db,"posts",postId,"comment"),{
+           comment:input,
+           name:session.user.name,
+           username:session.user.username,
+           userImg:session.user.image,
+           timestamp:serverTimestamp()
+        })
+        setOpen(false);
+        setinput("")
+        router.push(`posts/${postId}`);
+    }
     return (
     <div>
        {open&&( 
