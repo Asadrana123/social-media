@@ -34,7 +34,7 @@ export default function ComponentModal() {
         })
         setOpen(false);
         setinput("")
-        router.push(`posts/${postId}`);
+        router.push(`/posts/${postId}`);
     }
     return (
     <div>

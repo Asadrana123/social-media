@@ -30,15 +30,15 @@ export default function Home({newsResults,randomUsersResults}) {
   )
 }
 //https://saurav.tech/NewsAPI/top-headlines/category/bussiness/us.json  
-// export async function getServerSideProps(){
-//         const newsResults=await fetch("https://saurav.tech/NewsAPI/top-headlines/category/health/in.json")
-//         .then((res)=>res.json());
-//         const randomUsersResults=await fetch("https://randomuser.me/api/?results=50&inc=name,login,picture")
-//         .then((res)=>res.json());
-//         return {
-//           props:{
-//             newsResults,
-//             randomUsersResults,
-//           },
-//         }
-// } 
+export async function getServerSideProps(){
+        const newsResults=await fetch("https://saurav.tech/NewsAPI/top-headlines/category/health/in.json")
+        .then((res)=>res.json());
+        const randomUsersResults=await fetch("https://randomuser.me/api/?results=50&inc=name,login,picture")
+        .then((res)=>res.json());
+        return {
+          props:{
+            newsResults,
+            randomUsersResults,
+          },
+        }
+} 
