@@ -1,30 +1,32 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
+import Comment from '@/components/Comment'
 import Head from 'next/head'
 import Sidebar from '@/components/Sidebar'
 import Post from '@/components/Post'
-import Feed from '@/components/Feed'
 import Widgets from '@/components/Widgets'
-import signin from '../auth/Signin'
 import { db } from '@/firebase'
-const inter = Inter({ subsets: ['latin'] })
-import { useSession,signIn } from 'next-auth/react'
 import ComponentModal from '@/components/ComponentModal'
 import { ArrowLeftIcon } from '@heroicons/react/solid'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { collection, doc, onSnapshot } from 'firebase/firestore'
+import { collection, doc, onSnapshot, orderBy,query } from 'firebase/firestore'
 export default function PostPage({newsResults,randomUsersResults}) {
-//   const {data:session}=useSession();
-//   if(!session){
-//      {signIn()}
-//  }
    const [post,setPost]=useState();
+   const [comments,setComments]=useState([]);
    const router=useRouter();
    const {id}=router.query;
-   useEffect(()=>onSnapshot(doc(db,"posts",id),(snapshot)=>setPost(snapshot),[db,id])
-  )
-   
+   useEffect(
+    ()=>onSnapshot(doc(db,"posts",id),(snapshot)=>setPost(snapshot)),
+    [db,id]
+  );
+   useEffect(()=>{
+            onSnapshot(
+              query(
+                collection(db,"posts",id,"comments"),
+                orderBy("timestamp","desc")
+              ),
+              (snapshot)=>setComments(snapshot.docs)
+            );
+   },[db,id])
   return (
 
           <div>
@@ -43,7 +45,20 @@ export default function PostPage({newsResults,randomUsersResults}) {
             Tweet
         </h2>
        </div>
-       <Post id={id} post={post}/> 
+       <Post key={id} id={id} post={post}/> 
+         {comments.length>0 && (
+          <div className=''>
+            {comments.map((comment)=>(
+                          <Comment
+                            key={comment.id}
+                            commentId={comment.id}
+                            originalPostId={id}
+                            comment={comment.data()}
+                          />
+                        ))}
+          </div>
+                                 )}
+
     </div>
           {newsResults&&randomUsersResults&&  
           <Widgets newsResults={newsResults.articles}
@@ -54,15 +69,15 @@ export default function PostPage({newsResults,randomUsersResults}) {
   )
 }
 //https://saurav.tech/NewsAPI/top-headlines/category/bussiness/us.json  
-export async function getServerSideProps(){
-        const newsResults=await fetch("https://saurav.tech/NewsAPI/top-headlines/category/health/in.json")
-        .then((res)=>res.json());
-        const randomUsersResults=await fetch("https://randomuser.me/api/?results=50&inc=name,login,picture")
-        .then((res)=>res.json());
-        return {
-          props:{
-            newsResults,
-            randomUsersResults,
-          },
-        }
-} 
+// export async function getServerSideProps(){
+//         const newsResults=await fetch("https://saurav.tech/NewsAPI/top-headlines/category/health/in.json")
+//         .then((res)=>res.json());
+//         const randomUsersResults=await fetch("https://randomuser.me/api/?results=50&inc=name,login,picture")
+//         .then((res)=>res.json());
+//         return {
+//           props:{
+//             newsResults,
+//             randomUsersResults,
+//           },
+//         }
+// } 
