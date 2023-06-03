@@ -9,12 +9,12 @@ export default function Sidebar() {
   return (
     <div className="hidden sm:flex flex-col p-2 xl:items-start fixed h-full xl:ml-24">
        <div className='hoverEffect p-0 hover:bg-blue-100 xl:px-1'>
-        <Image
+        <img
         alt="twitter"
         width="50"  
         height="50" 
          className='rounded-xl'
-        src="https://help.twitter.com/content/dam/help-twitter/brand/logo.png"
+        src="https://engineering.fb.com/wp-content/uploads/2009/02/chat.jpg"
         />
         </div> 
         {/* {menu} */}
@@ -33,7 +33,7 @@ export default function Sidebar() {
         {/* {button} */}
         {session?<> <div className='mb-7'>
           <button className='bg-blue-400 text-white rounded-full w-56 h-12 font-bold shadow-md hover:brightness-95 text-lg hidden xl:inline'>
-            Tweet
+            Post
         </button></div>
         <div className="hoverEffect text-gray-700 flex items-center justify-center xl:justify-start">
             <img
