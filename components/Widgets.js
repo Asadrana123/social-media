@@ -3,6 +3,7 @@ import React from 'react'
 import News from './News'
 import { useState } from 'react'
 import { AnimatePresence,motion } from 'framer-motion'
+import Image from 'next/image'
 export default function Widgets({newsResults,randomUsersResults}) {
   const [articleNum,setArticleNum]=useState(3)
   const [userNum,setuserNum]=useState(3)

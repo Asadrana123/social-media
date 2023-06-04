@@ -9,7 +9,7 @@ export default function Sidebar() {
   return (
     <div className="hidden sm:flex flex-col p-2 xl:items-start fixed h-full xl:ml-24">
        <div className='hoverEffect p-0 hover:bg-blue-100 xl:px-1'>
-        <img
+        <Image
         alt="twitter"
         width="50"  
         height="50" 
@@ -36,11 +36,13 @@ export default function Sidebar() {
             Post
         </button></div>
         <div className="hoverEffect text-gray-700 flex items-center justify-center xl:justify-start">
-            <img
+            <Image
               src={session?.user.image}          
               alt="user-img"
               className="h-10 w-10 rounded-full xl:mr-2"
               onClick={signOut}
+              width="20"
+              height="20"
             />
             <div className="leading-5 hidden xl:inline">
               <h4 className="font-bold">{session.user.name}</h4>

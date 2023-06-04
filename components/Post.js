@@ -9,6 +9,7 @@ import { deleteObject, ref } from 'firebase/storage';
 import { modalState, postIdState } from '@/atom/modalAtom';
 import { useRecoilState } from 'recoil';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 function Post({post,id}) {
   const router=useRouter();
   const {data:session}=useSession();
@@ -58,8 +59,11 @@ async function deletePost(){
   return (
     <div className='flex p-3 cursor-pointer border-b border-gray-200'>
               {/* image */}
-              <img className='h-11 w-11 rounded-full mr-3' 
-              src={post?.data()?.userImg} alt="user image"/>
+              <Image className='h-11 w-11 rounded-full mr-3' 
+              src={post?.data()?.userImg} alt="user image"
+              width="20"
+              height="20"
+              />
               {/* right side */}
               <div className='flex-1'>
                 {/* header */}
@@ -84,7 +88,7 @@ async function deletePost(){
                 {post?.data()?.image&& <img 
                 onClick={()=>router.push(`posts/${id}`)}
                 className='rounded-2xl mr-2' 
-                src={post?.data()?.image} alt="post image"/>} 
+                src={post?.data()?.image}  alt="post image"/>} 
                 {/* icons */}
                 <div className='flex justify-between text-gray-500 p-2'>
                          <div className='flex items-center'>

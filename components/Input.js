@@ -8,6 +8,7 @@ import { useState } from 'react';
 import {addDoc, collection, updateDoc,doc} from "firebase/firestore"
 import { serverTimestamp } from 'firebase/firestore';
 import { getDownloadURL, uploadString } from 'firebase/storage';
+import Image from 'next/image';
 export default function Input() {
       const {data:session}=useSession();
       const [input,setinput]=useState(""); 
@@ -77,9 +78,10 @@ export default function Input() {
                     shadow-white
                     shadow-md'   
                     />
-                    <img src={selectedFile} 
+                    <Image src={selectedFile} 
                      className={`${loading&&"animate-pulse"}`}
-                    alt=""/>
+                    alt=""
+                    />
                     </div>
                 )}
             <div className='flex items-center justify-between pt-2.5'>

@@ -16,7 +16,7 @@ export default function PostPage({newsResults,randomUsersResults}) {
    const {id}=router.query;
    useEffect(
     ()=>onSnapshot(doc(db,"posts",id),(snapshot)=>setPost(snapshot)),
-    [db,id]
+    [id]
   );
    useEffect(()=>{
             onSnapshot(
@@ -26,7 +26,7 @@ export default function PostPage({newsResults,randomUsersResults}) {
               ),
               (snapshot)=>setComments(snapshot.docs)
             );
-   },[db,id])
+   },[id])
   return (
 
           <div>

@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import { XIcon } from '@heroicons/react/solid';
 import { useSession } from 'next-auth/react';
 import {PhotographIcon,EmojiHappyIcon} from '@heroicons/react/solid';
+import Image from 'next/image';
 export default function ComponentModal() {
     const [open,setOpen]=useRecoilState(modalState);
     const [postId]=useRecoilState(postIdState);
@@ -23,7 +24,7 @@ export default function ComponentModal() {
              onSnapshot(doc(db,"posts",postId),(snapshot)=>{
                 setPost(snapshot);
              })
-    },[postId,db])
+    },[postId])
     async function sendComment(){
         await addDoc(collection(db,"posts",postId,"comments"),{
            comment:input,
@@ -54,8 +55,11 @@ export default function ComponentModal() {
                     <div className='p-2 flex space-x-1 relative'>
                      <span className='w-0.5 h-full z-[-1] absolute left-8 top-11 bg-gray-400'>
                      </span>
-                    <img className='h-11 w-11 rounded-full mr-3' 
-                     src={post?.data()?.userImg} alt="user image"/>
+                    <Image className='h-11 w-11 rounded-full mr-3' 
+                     src={post?.data()?.userImg} alt="user image"
+                     width="20"
+                     height="20"
+                     />
                      <h4 className='font-bold text-[15px] sm:text-[16px] hover:underline'>{post?.data()?.name}</h4>
                                <span className='text-sm sm:text-[15px]'>@{post?.data()?.username}</span>
                                <span className='text-sm sm:text-[15px] hover:underline'>
@@ -66,10 +70,12 @@ export default function ComponentModal() {
                     </div>
                     <p className='text-gay-500 text-[15px] sm:text-[16px] ml-16 mb-2'>{post?.data()?.text}</p>
           <div className='flex border-gray-200 p-3 space-x-3'>
-          <img
+          <Image
               src={session.user.image}
               alt="user-img"
               className="h-10 w-10 rounded-full xl:mr-2"
+              width="20"
+              height="20"
           />
             <div className='w-full divide-y divide-gray-200'>
                 <div className=''>

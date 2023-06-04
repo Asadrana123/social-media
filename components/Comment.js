@@ -9,6 +9,7 @@ import { deleteObject, ref } from 'firebase/storage';
 import { modalState, postIdState } from '@/atom/modalAtom';
 import { useRecoilState } from 'recoil';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 function Comment({comment,commentId,originalPostId}) {
   const router=useRouter();
   const {data:session}=useSession();
@@ -22,7 +23,7 @@ function Comment({comment,commentId,originalPostId}) {
           collection(db,"posts",originalPostId,"comments",commentId,"likes"),
           (snapshot)=>setLikes(snapshot.docs)
         );      
-  },[db,originalPostId,commentId])
+  },[originalPostId,commentId])
   useEffect(()=>{
        sethasLiked
        (likes.findIndex
@@ -71,10 +72,13 @@ async function deleteComment(){
   return (
     <div className='flex p-3 cursor-pointer border-b border-gray-200 pl-20'>
               {/* image */}
-              <img 
+              <Image 
               className='h-11 w-11 rounded-full mr-3' 
               src={comment?.userImg} 
-              alt="user image"/>
+              alt="user image"
+              width="20"
+              height="20"
+              />
               {/* right side */}
               <div className='flex-1'>
                 {/* header */}
