@@ -18,7 +18,7 @@ export default function signin({providers}) {
                       className='w-36 object-cover'
                       alt=""/>
                       <p className='text-center text-sm italic my-10'>This app is created for learning purposes</p>
-                      <button onClick={()=>signIn(provider.id)} className='bg-sky-500 rounded-lg p-3 text-white hover:bg-sky-600' >Sign in with {provider.name}</button>
+                      <button onClick={()=>signIn(provider.id,{callbackUrl:"/"})} className='bg-sky-500 rounded-lg p-3 text-white hover:bg-sky-600' >Sign in with {provider.name}</button>
               </div>
              ))}
              </div>
