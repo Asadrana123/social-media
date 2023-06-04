@@ -88,7 +88,8 @@ async function deletePost(){
                 {post?.data()?.image&& <img 
                 onClick={()=>router.push(`posts/${id}`)}
                 className='rounded-2xl mr-2' 
-                src={post?.data()?.image}  alt="post image"/>} 
+                src={post?.data()?.image}  alt="post image"
+                />} 
                 {/* icons */}
                 <div className='flex justify-between text-gray-500 p-2'>
                          <div className='flex items-center'>
