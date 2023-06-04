@@ -7,6 +7,8 @@ export default function signin({providers}) {
              <Image src="https://cdn.cms-twdigitalassets.com/content/dam/blog-twitter/archive/new_mobile_updatesforandroidiphoneandmobileweb95.thumb.1280.1280.png" 
              alt=""
             className='hidden object-cover md:inline-flex md:w-44 md:h-80 rotate-6'
+            width="400"
+            height="400"
              />
              <div className='flex flex-col items-center'>
              {Object.values(providers).map((provider)=>(
