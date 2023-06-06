@@ -1,10 +1,9 @@
-import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import Head from 'next/head'
 import Sidebar from '@/components/Sidebar'
 import Feed from '@/components/Feed'
 import Widgets from '@/components/Widgets'
-const inter = Inter({ subsets: ['latin'] })
+
 import ComponentModal from '@/components/ComponentModal'
 export default function Home({newsResults,randomUsersResults}) {
 //   const {data:session}=useSession();
