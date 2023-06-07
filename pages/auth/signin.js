@@ -14,10 +14,10 @@ export default function signin({providers}) {
              {Object.values(providers).map((provider)=>(
                       <div  key={provider.name} className='flex flex-col items-center'
                       >
-                      <img src="https://help.twitter.com/content/dam/help-twitter/brand/logo.png" 
-                      className='w-36 object-cover'
+                      <img src="https://engineering.fb.com/wp-content/uploads/2009/02/chat.jpg" 
+                      className='w-36 object-cover rounded-xl'
                       alt=""/>
-                      <p className='text-center text-sm italic my-10'>This app is created for learning purposes</p>
+                      <p className='text-center text-sm italic my-10'>This app is created for learning purposes<br></br>Made by AsadR</p>
                       <button onClick={()=>signIn(provider.id,{callbackUrl:"/"})} className='bg-sky-500 rounded-lg p-3 text-white hover:bg-sky-600' >Sign in with {provider.name}</button>
               </div>
              ))}

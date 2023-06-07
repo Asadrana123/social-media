@@ -10,7 +10,7 @@ export default function Sidebar() {
     <div className="hidden sm:flex flex-col p-2 xl:items-start fixed h-full xl:ml-24">
        <div className='hoverEffect p-0 hover:bg-blue-100 xl:px-1'>
         <Image
-        alt="twitter"
+        alt="Chat"
         width="50"  
         height="50" 
          className='rounded-xl'

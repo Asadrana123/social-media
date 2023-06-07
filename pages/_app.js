@@ -9,7 +9,7 @@ export default function App({ Component, pageProps:{session,...pageProps} }) {
       window.OneSignal = window.OneSignal || [];
       OneSignal.push(function () {
         OneSignal.init({
-          appId: "YOUR_ONE_SIGNAL_ID",
+          appId: "33e21049-b34b-4962-87f9-73029cd74383",
           notifyButton: {
             enable: true,
           },
