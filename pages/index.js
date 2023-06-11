@@ -28,33 +28,33 @@ export default function Home({newsResults,randomUsersResults}) {
   )
 }
 //https://saurav.tech/NewsAPI/top-headlines/category/bussiness/us.json  
-// export async function getServerSideProps() {
-//   const newsResults = await fetch(
-//     "https://saurav.tech/NewsAPI/top-headlines/category/business/us.json"
-//   ).then((res) => res.json());
+export async function getServerSideProps() {
+  const newsResults = await fetch(
+    "https://saurav.tech/NewsAPI/top-headlines/category/business/us.json"
+  ).then((res) => res.json());
 
-//   // Who to follow section
+  // Who to follow section
 
-//   let randomUsersResults = [];
+  let randomUsersResults = [];
 
-//   try {
-//     const res = await fetch(
-//       "https://randomuser.me/api/?results=30&inc=name,login,picture"
-//     );
+  try {
+    const res = await fetch(
+      "https://randomuser.me/api/?results=30&inc=name,login,picture"
+    );
 
-//     randomUsersResults = await res.json();
-//   } catch (e) {
-//     randomUsersResults = [];
-//   }
+    randomUsersResults = await res.json();
+  } catch (e) {
+    randomUsersResults = [];
+  }
 
-//   // const randomUsersResults = await fetch(
-//   //   "https://randomuser.me/api/?results=30&inc=name,login,picture"
-//   // ).then((res) => res.json());
+  // const randomUsersResults = await fetch(
+  //   "https://randomuser.me/api/?results=30&inc=name,login,picture"
+  // ).then((res) => res.json());
 
-//   return {
-//     props: {
-//       newsResults,
-//       randomUsersResults,
-//     },
-//   }; 
-// }
+  return {
+    props: {
+      newsResults,
+      randomUsersResults,
+    },
+  }; 
+}
