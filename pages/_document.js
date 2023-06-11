@@ -4,8 +4,7 @@ export default function Document() {
     <Html lang="en">
       <Head>
         <script
-          async
-          src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"
+          src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" defer
         ></script>
       </Head>
       <body>

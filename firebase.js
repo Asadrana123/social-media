@@ -1,5 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp,getApp,getApps } from "firebase/app";
+import "firebase/messaging";
+import { getMessaging } from "firebase/messaging";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 import { getFirestore } from "firebase/firestore";
@@ -16,5 +18,11 @@ const firebaseConfig = {
 const app=!getApps().length?initializeApp(firebaseConfig):getApp();
 const db=getFirestore();
 const storage=getStorage();
-export {app,db,storage};
+
 // Initialize Firebase
+
+const messaging = typeof window !== "undefined" ? getMessaging(app) : null;
+
+ const VAPID_KEY = "BNj1HbV9WT_28hVaK8rwoaZT4ULeIANMe-NrjvYvNcXH85mxdC74moOvcb2PhjtCDYxMqlSvYJ2GhEJW-hTLF8E"
+// export { firebaseCloudMessaging };
+export {app,db,storage,messaging,VAPID_KEY} ;
