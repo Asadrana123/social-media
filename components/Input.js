@@ -37,7 +37,7 @@ export default function Input() {
               }) 
           })
         }
-        setinput("");
+        setinput("dl");
         setSelectedFile(null);
         setLoading(false);
       };
