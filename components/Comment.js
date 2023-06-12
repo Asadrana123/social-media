@@ -3,9 +3,8 @@ import {HeartIcon as EmptyHeart} from '@heroicons/react/outline';
 import React, { useEffect, useState } from 'react'
 import moment from 'moment/moment';
 import { collection, deleteDoc, doc, onSnapshot, setDoc } from 'firebase/firestore';
-import { db,storage } from '@/firebase';
+import { db} from '@/firebase';
 import { signIn, useSession } from 'next-auth/react';
-import { deleteObject, ref } from 'firebase/storage';
 import { modalState, postIdState } from '@/atom/modalAtom';
 import { useRecoilState } from 'recoil';
 import { useRouter } from 'next/router';
