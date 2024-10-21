@@ -14,10 +14,15 @@ export default function PostPage({newsResults,randomUsersResults}) {
    const [comments,setComments]=useState([]);
    const router=useRouter();
    const {id}=router.query;
-   useEffect(
-    ()=>onSnapshot(doc(db,"posts",id),(snapshot)=>setPost(snapshot)),
-    [id]
-  );
+   useEffect(() => {
+    const unsubscribe = onSnapshot(doc(db, "posts", id), (snapshot) => {
+      setPost(snapshot);
+      console.log(snapshot);
+    });
+  
+    // Cleanup function to unsubscribe when component unmounts
+    return () => unsubscribe();
+  }, [id]);
    useEffect(()=>{
             onSnapshot(
               query(

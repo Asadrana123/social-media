@@ -22,14 +22,9 @@ function Post({post,id}) {
         const unsubscribe=onSnapshot(
           collection(db,"posts",id,"likes"),
           (snapshot)=>setLikes(snapshot.docs)
-        );      
+        ); 
+        return ()=>unsubscribe()     
   },[db])
-  useEffect(()=>{
-    const unsubscribe=onSnapshot(
-      collection(db,"posts",id,"comments"),
-      (snapshot)=>setComments(snapshot.docs)
-    );      
-},[db])
   useEffect(()=>{
        sethasLiked(likes.findIndex((like)=>like.id===session?.user.uid)!==-1)
   },[likes])
